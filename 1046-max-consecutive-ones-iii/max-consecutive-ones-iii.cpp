@@ -5,11 +5,7 @@ public:
         for(int right=0;right<nums.size();right++)
         {
             if(nums[right]==0) zero++;
-            if(zero<=k)
-            {
-                ans=max(ans,right-left+1);
-            }
-            else 
+            while(zero>k) 
             {
                 if(zero>k)
                 {
@@ -17,6 +13,7 @@ public:
                     left++;
                 }
             }
+            ans=max(ans,right-left+1);
         }
         return ans;
     }
