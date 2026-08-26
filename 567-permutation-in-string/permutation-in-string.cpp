@@ -5,24 +5,30 @@ public:
         if(s1.size() > s2.size())
             return false;
 
-        unordered_map<char,int> h1, h2;
+        int freq[26] = {};
 
         for(char c : s1)
-            h1[c]++;
+            freq[c-'a']++;
 
         int left = 0;
 
         for(int right = 0; right < s2.size(); right++)
         {
-            h2[s2[right]]++;
+            freq[s2[right] - 'a']--;
 
             if(right - left + 1 == s1.size())
-            {
-                if(h1 == h2)
-                    return true;
-
-                if(h2[s2[left]]-1==0) h2.erase(s2[left]);
-                else h2[s2[left]]--;
+            {   
+                int i=0,flag=0;
+                while(i<26)
+                {
+                    if(freq[i]!=0)
+                    {
+                        flag++;
+                    }
+                    i++;
+                }
+                if(!flag) return true;
+                freq[s2[left] - 'a']++;
                 left++;
             }
         }
