@@ -2,7 +2,7 @@ class Solution {
 public:
     void permut(vector<vector<int>>& ans,vector<int>& arr,int n)
     {
-        if(arr.size()==n)
+        if(n==arr.size())
         {
             ans.push_back(arr);
             return;
