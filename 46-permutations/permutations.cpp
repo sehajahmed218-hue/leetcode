@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void permut(vector<vector<int>>& ans,vector<int> arr,int n)
+    void permut(vector<vector<int>>& ans,vector<int>& arr,int n)
     {
         if(arr.size()==n)
         {
