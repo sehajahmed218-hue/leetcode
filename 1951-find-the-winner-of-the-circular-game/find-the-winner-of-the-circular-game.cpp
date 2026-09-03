@@ -1,32 +1,14 @@
 class Solution {
 public:
-    int winner(vector<int>& person,int person_left,int n,int k,int index)
+    int winner(int n,int k)
     {
-        if(person_left==1)
+        if(n==0)
         {
-            for(int i=0;i<person.size();i++)
-            {
-                if(person[i]==0)
-                    return i;
-            }
+            return 0;
         }
-        int kill = (k-1)%person_left;
-        while(kill--)
-        {
-            index = (index+1)%n;
-            while(person[index]==1)
-                index= (index+1)%n;
-        }
-        person[index]= 1;
-        while(person[index]==1)
-        {
-            index = (index+1)%n;
-        }
-        return winner(person,person_left-1,n,k,index);
+        return (winner(n-1,k)+k)%n;
     }
     int findTheWinner(int n, int k) {
-        vector<int> person(n,0);
-        int person_left=n;
-        return winner(person,person_left,n,k,0)+1;
+        return winner(n,k)+1;
     }
 };
