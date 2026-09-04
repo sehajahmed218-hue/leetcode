@@ -1,26 +1,6 @@
 class Solution {
 public:
-    bool isvalid(int i,int n,vector<string>& board,int j)
-    {
-        int row=i;
-        int column=j;
-        while(row>-1 && column>-1)
-        {
-            if(board[row][column]=='Q')
-                return 0;
-            row--;column--;
-        }
-        row=i;
-        column=j;
-        while(row>-1 && column<n)
-        {
-            if(board[row][column]=='Q')
-                return 0;
-            row--;column++;
-        }
-        return 1;
-    }
-    void find(int row,int n,vector<string>& board,vector<vector<string>>& ans,vector<bool>& column){
+    void find(int row,int n,vector<string>& board,vector<vector<string>>& ans,vector<bool>& column,vector<int>& ldiagonal,vector<int>& rdiagonal){
         if(row==n)
         {
             ans.push_back(board);
@@ -28,11 +8,15 @@ public:
         }
         for(int i=0;i<n;i++)
         {
-         if(isvalid(row,n,board,i) && column[i]==0)
+         if(ldiagonal[n-1+i-row]==0 && column[i]==0 && rdiagonal[i+row]==0)
          {
             column[i]=1;
+            ldiagonal[n-1+i-row]++;
+            rdiagonal[i+row]++;
             board[row][i]='Q';
-            find(row+1,n,board,ans,column);
+            find(row+1,n,board,ans,column,ldiagonal,rdiagonal);
+            ldiagonal[n-1+i-row]--;
+            rdiagonal[row+i]--;
             board[row][i]='.';
             column[i]=0;
          }   
@@ -45,7 +29,10 @@ public:
         for(int j=0;j<n;j++)
         board[i].push_back('.');
         vector<bool> column(n,0);
-        find(0,n,board,ans,column);
+        vector<int> ldiagonal(2*n-1,0);
+        vector<int> rdiagonal(2*n-1,0);
+
+        find(0,n,board,ans,column,ldiagonal,rdiagonal);
         return ans;
     }
 };
