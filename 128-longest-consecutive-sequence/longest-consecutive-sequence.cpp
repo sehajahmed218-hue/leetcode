@@ -4,7 +4,6 @@ public:
         if(nums.empty())
             return 0;
         sort(nums.begin(),nums.end());
-        unordered_set<int> hash(nums.begin(),nums.end()),x;
         int ans=1,temp=1;
         for(int i=1;i<nums.size();i++)
         {
